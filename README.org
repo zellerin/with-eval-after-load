@@ -2,12 +2,6 @@
 :PROPERTIES:
 :CUSTOM_ID: overview
 :END:
-** Table of Contents
-:PROPERTIES:
-:CUSTOM_ID: table-of-contents
-:END:
-- [[#x-28WITH-EVAL-AFTER-LOAD-3A-40DICTIONARY-20MGL-PAX-3ASECTION-29][1  Dictionary]]
-
 ****** [in package WITH-EVAL-AFTER-LOAD]
 :PROPERTIES:
 :CUSTOM_ID: in-package-with-eval-after-load
@@ -18,16 +12,20 @@ aware of anything like that in Common Lisp.
 
 This package imitates the with-eval-after-load macro.
 
-Quick start example: Drakma by default considers Javascript to be a
-binary format. I want it to handle it as text. This can be done by
-setting =DRAKMA:*TEXT-CONTENT-TYPES*= appropriately.
+** 1 Quick start example
+:PROPERTIES:
+:CUSTOM_ID: quick-start-example
+:END:
+Drakma by default considers Javascript to be a binary format. I want it
+to handle it as text. This can be done by setting
+=DRAKMA:*TEXT-CONTENT-TYPES*= appropriately.
 
 So I have this in my ~/.sbclrc:
 
 #+begin_src lisp
 (with-eval-after-load ("drakma" drakma)
   (setf #:*text-content-types*
-        (list* '("application" . "javascript") '("application" . "json") '("text" . nil))))
+        (list '("application" . "javascript") '("application" . "json") '("text" . nil))))
 #+end_src
 
 It does not load Drakma and its dependencies, but it makes sure that
@@ -38,7 +36,7 @@ the package name as a parameter and #: in the setf.
 The package also provides an autoload feature that is kind of
 experimental.
 
-** 1 Dictionary
+** 2 Dictionary
 :PROPERTIES:
 :CUSTOM_ID: dictionary
 :END:
@@ -78,6 +76,15 @@ experimental.
   [[#x-28WITH-EVAL-AFTER-LOAD-3AWITH-EVAL-AFTER-LOAD-20MGL-PAX-3AMACRO-29][=WITH-EVAL-AFTER-LOAD=]],
   but can be used independently as well if you handle package creation
   in a different way.
+
+** 3 Known bugs
+:PROPERTIES:
+:CUSTOM_ID: known-bugs
+:END:
+This is in "good-enough-for-me" state.
+
+It abuses =ASDF:PERFORM= =:AFTER= method. If some system uses it, things
+may break. That said, I did not see it defined on the systems I use.
 
 --------------
 
